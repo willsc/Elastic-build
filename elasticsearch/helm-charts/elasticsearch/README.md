@@ -7,6 +7,8 @@ Installing test charts/values for master and data nodes.
 helm install elasticsearch elastic/elasticsearch -f master-values.yaml -n elastic-uat
 helm install elasticsearch-data elastic/elasticsearch -f data-values.yaml -n elastic-uat
 
+Define nodeGroups for master and data nodes in separate values files.
+
 ```
 master-values.yaml:
 
