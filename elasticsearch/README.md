@@ -2,6 +2,8 @@
 
 ```
 ❯ docker build --platform x86_64 -t elasticsearch:latest .
+
+
 [+] Building 1.4s (25/25) FINISHED
  => [internal] load build definition from Dockerfile                                                                                                                                                                    0.0s
  => => transferring dockerfile: 7.62kB                                                                                                                                                                                  0.0s
