@@ -1,5 +1,62 @@
 # Elasticsearch Helm Chart
 
+
+Installing test charts/values for master and data nodes.
+
+```
+helm install elasticsearch elastic/elasticsearch -f master-values.yaml -n elastic-uat
+helm install elasticsearch-data elastic/elasticsearch -f data-values.yaml -n elastic-uat
+
+```
+master-values.yaml:
+
+```
+clusterName: "elasticsearch"
+nodeGroup: "master"
+
+# The service that non master groups will try to connect to when joining the cluster
+# This should be set to clusterName + "-" + nodeGroup for your master group
+masterService: ""
+
+# Elasticsearch roles that will be applied to this nodeGroup
+# These will be set as environment variables. E.g. node.master=true
+roles:
+  master: "true"
+  ingest: "true"
+  data: "true"
+  remote_cluster_client: "true"
+master-values.yaml...skipping...
+---
+clusterName: "elasticsearch"
+nodeGroup: "master"
+
+# The service that non mast
+
+```
+
+data-values.yaml:
+
+```
+---
+clusterName: "elasticsearch"
+nodeGroup: "data"
+
+# The service that non master groups will try to connect to when joining the cluster
+# This should be set to clusterName + "-" + nodeGroup for your master group
+masterService: ""
+
+# Elasticsearch roles that will be applied to this nodeGroup
+# These will be set as environment variables. E.g. node.master=true
+roles:
+  master: "false"
+  ingest: "true"
+  data: "true"
+  remote_cluster_client: "true"
+  ml: "true"
+
+
+```
+
 [![Build Status](https://img.shields.io/jenkins/s/https/devops-ci.elastic.co/job/elastic+helm-charts+main.svg)](https://devops-ci.elastic.co/job/elastic+helm-charts+main/) [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/elastic)](https://artifacthub.io/packages/search?repo=elastic)
 
 This Helm chart is a lightweight way to configure and run our official
