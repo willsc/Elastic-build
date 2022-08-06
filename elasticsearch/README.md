@@ -56,3 +56,85 @@ docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=sing
 ```
 
 3. Push image to repository.
+
+
+
+
+## Notes on Elastic deployemen
+
+- It seems that Elastic uses mmapfs directories by default to store its indices, usually the setting for this is too low in the OS this can typically be
+increased via 
+
+mmapfs stores the shard index onthe file system (maps the lucenes MMapDirectory by mapping a file into memory (mmap) Memory mapping uses up a portion of virtual mmemory address space usually this mirror the size of the file being mapped.
+
+```
+sysctl -w vm.max_map_count=262144
+
+```
+
+The issues :  Typically you might set the vm.max.map count on the node the cluster as a however in the kubernetes work this has to be done via a init container which has to run with root privilges. In our clusters we cannot run containers as root. 
+
+```
+pod.beta.kubernetes.io/init-containers: '[
+          {
+          "name": "sysctl",
+            "image": "busybox",
+            "imagePullPolicy": "IfNotPresent",
+            "command": ["sysctl", "-w", "vm.max_map_count=262144"],
+            "securityContext": {
+              "privileged": true
+            }
+          }
+        ]'
+```
+
+- This can also be set via security context howver again we switch this off cannot alter it n our cluster.
+
+
+Mitigations:
+
+- Insist that SI allow the the use of init containers throughout the cluser.
+- Validate whether we can use init containers in a single namespace via the pod security policy.
+- Set vm.max_map_count=262144"] at a host level.
+- Get rid of PSP all together as it is now depreciaetd in 1.21.
+- Get SI to create PSP and possibly role which binds to the statefulset 
+- Alternative run a daemonset on all nodes 
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1 
+kind: DaemonSet
+metadata:
+  labels:
+    name: es-ds
+  name: es-ds
+spec:
+  selector:
+    matchLabels:
+      name: es-ds
+  template:
+    metadata:
+      labels:
+        name: es-ds
+    spec:
+      containers:
+      - name: es-ds
+        image: gcr.io/startup-script:v1
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        env:
+        - name: STARTUP_SCRIPT
+          value: |
+            #! /bin/bash
+            sysctl -w vm.max_map_count=262144
+            echo "done"
+EOF
+
+
+```
+
+We also need s license fo Elastic.?
+
+
+
