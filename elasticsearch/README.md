@@ -60,7 +60,7 @@ docker run -p 127.0.0.1:9200:9200 -p 127.0.0.1:9300:9300 -e "discovery.type=sing
 
 
 
-## Notes on Elastic deployemen
+## Notes on Elastic deployement
 
 - It seems that Elastic uses mmapfs directories by default to store its indices, usually the setting for this is too low in the OS this can typically be
 increased via 
