@@ -39,8 +39,8 @@ USER root
 RUN groupadd -r appuser && useradd -r -g appuser  appuser 
 RUN echo "===> Installing ${COMPONENT}..." \
     && echo "===> Adding confluent repository...${CONFLUENT_PACKAGES_REPO}" 
-ADD  confluent-kafka-7.2.1-1.noarch.rpm /confluent-kafka-7.2.1-1.noarch.rpm 
-RUN  rpm -ivh  confluent-kafka-7.2.1-1.noarch.rpm \
+ADD confluent-kafka-7.2.1-1.noarch.rpm /confluent-kafka-7.2.1-1.noarch.rpm 
+RUN rpm -ivh  confluent-kafka-7.2.1-1.noarch.rpm \
     && echo "===> Setting up ${COMPONENT} dirs" \
     && mkdir -p /var/lib/${COMPONENT}/data /etc/${COMPONENT}/secrets \
     && chown appuser:root -R /etc/kafka /var/log/kafka /var/log/confluent /var/lib/kafka /var/lib/zookeeper /etc/${COMPONENT}/secrets /var/lib/${COMPONENT} /etc/${COMPONENT} \
@@ -49,6 +49,7 @@ RUN  rpm -ivh  confluent-kafka-7.2.1-1.noarch.rpm \
 VOLUME ["/var/lib/${COMPONENT}/data", "/etc/${COMPONENT}/secrets"]
 
 COPY include/etc/confluent/docker /etc/confluent/docker
+RUN chown -R appuser:appuser  /etc/confluent/docker
 
 USER appuser
 
