@@ -35,7 +35,7 @@ hostAliases: []
 #  - "bar.local"
 
 image: "docker.elastic.co/kibana/kibana"
-imageTag: "7.17.1"
+imageTag: "7.17.4"
 imagePullPolicy: "IfNotPresent"
 
 # additionals labels
@@ -117,7 +117,8 @@ updateStrategy:
   type: "Recreate"
 
 service:
-  type: ClusterIP
+  #type: ClusterIP
+  type: LoadBalancer
   loadBalancerIP: ""
   port: 5601
   nodePort: ""
