@@ -25,6 +25,7 @@ RUN mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin/conf/zoo_sample.cfg /opt/a
 ENV JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
 ENV ZK_HOME /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin
 RUN sed  -i "s|/tmp/zookeeper|$ZK_HOME/data|g" $ZK_HOME/conf/zoo.cfg; mkdir $ZK_HOME/data
+RUN ln -s /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin/conf /conf
 
 ADD start-zk.sh /usr/bin/start-zk.sh 
 EXPOSE 2181 2888 3888

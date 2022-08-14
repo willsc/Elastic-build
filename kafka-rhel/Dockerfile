@@ -1,5 +1,4 @@
 FROM centos:centos7
-
 ARG kafka_version=3.2.0
 ARG scala_version=2.13
 ARG vcs_ref=unspecified
