@@ -8,6 +8,9 @@ metadata:
     app: zookeeper
 spec:
   replicas: 3
+  podManagementPolicy: Parallel
+  updateStrategy:
+    type: RollingUpdate
   serviceName: zookeeper
   selector:
     matchLabels:
@@ -17,13 +20,23 @@ spec:
       labels:
         app: zookeeper
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values: 
+                    - zookeeper
+              topologyKey: "kubernetes.io/hostname"
       containers:
         - name: zookeeper
           image: caronwills/zookeeper-rhel-v2:latest 
           command:
             - /bin/sh
             - -c
-            - export ZOO_MY_ID=$(expr $(hostname | grep -o "[[:digit:]]*$") + 1) && /docker-entrypoint.sh zkServer.sh start-foreground
+            - export ZOO_MY_ID=$(expr $(hostname | grep -o "[[:digit:]]*$") + 1) && /docker-entrypoint.sh zkServer.sh start-foreground            
           ports:
             - containerPort: 2181
               name: client
@@ -32,10 +45,12 @@ spec:
             - containerPort: 3888
               name: leader-election
           env:
+            - name: ZOO_4LW_COMMANDS_WHITELIST
+              value: rouk
             - name: ZOO_SERVERS
               value: "server.1=zookeeper-0.zookeeper:2888:3888 \
                       server.2=zookeeper-1.zookeeper:2888:3888 \
-                      server.3=zookeeper-2.zookeeper:2888:3888"
+                      server.3=zookeeper-2.zookeeper:2888:3888"    
           volumeMounts:
             - name: data
               mountPath: /data
@@ -52,4 +67,5 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
 
