@@ -13,7 +13,7 @@ spec:
   selector:
     app: kafka
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: kafka-pdb
@@ -60,7 +60,7 @@ spec:
                       - key: "app"
                         operator: In
                         values: 
-                        - zk
+                        - zookeeper
                  topologyKey: "kubernetes.io/hostname"
       terminationGracePeriodSeconds: 300
       containers:
@@ -79,7 +79,7 @@ spec:
         - -c
         - "exec kafka-server-start.sh /opt/kafka/config/server.properties --override broker.id=${HOSTNAME##*-} \
           --override listeners=PLAINTEXT://:9093 \
-          --override zookeeper.connect=zookeeper-0.zookeeper.hornet.svc.cluster.local:2181, zookeeper-1.zookeeper.hornet.svc.cluster.local:2181,zookeeper-2.zookeeper.hornet.svc.cluster.local:2181\
+          --override zookeeper.connect=zookeeper-0.hornet.svc.cluster.local:2181,zookeeper-1.hornet.svc.cluster.local:2181,zookeeper-2.hornet.svc.cluster.local:2181 \
           --override log.dir=/var/lib/kafka \
           --override auto.create.topics.enable=true \
           --override auto.leader.rebalance.enable=true \
@@ -155,6 +155,7 @@ spec:
           --override log.index.size.max.bytes=10485760 \
           --override log.message.timestamp.difference.max.ms=9223372036854775807 \
           --override log.message.timestamp.type=CreateTime \
+          --override inter.broker.protocol.version=0.11.0
           --override log.preallocate=false \
           --override log.retention.check.interval.ms=300000 \
           --override max.connections.per.ip=2147483647 \
