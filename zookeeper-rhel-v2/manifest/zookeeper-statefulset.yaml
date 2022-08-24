@@ -48,9 +48,9 @@ spec:
             - name: ZOO_4LW_COMMANDS_WHITELIST
               value: rouk
             - name: ZOO_SERVERS
-              value: "server.1=zookeeper-0.zookeeper:2888:3888;2181 \
-                      server.2=zookeeper-1.zookeeper:2888:3888;2181 \
-                      server.3=zookeeper-2.zookeeper:2888:3888;2181"    
+              value: "server.1=zookeeper-0.zookeeper.default.svc.cluster.local:2888:3888;2181 \
+                      server.2=zookeeper-1.zookeeper.default.svc.cluster.local:2888:3888;2181 \
+                      server.3=zookeeper-2.zookeeper.default.svc.cluster.local:2888:3888;2181"    
           volumeMounts:
             - name: data
               mountPath: /data
