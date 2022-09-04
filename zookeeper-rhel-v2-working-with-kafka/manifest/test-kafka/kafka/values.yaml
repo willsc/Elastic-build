@@ -8,7 +8,7 @@ podManagementPolicy: Parallel
 serviceName: kafka
 
 image:
-  repository: caronwills/kafka-rhel-2.13-3.2.0:latest
+  repository: caronwills/kafka-rhel-2.13-3.2.0
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -36,12 +36,12 @@ securityContext:
   #   drop:
   #   - ALL
   # readOnlyRootFilesystem: true
-  runAsNonRoot: true
-  runAsUser: 1000
+ # runAsNonRoot: true
+ # runAsUser: 1000
 
 service:
   type: LoadBalancer 
-  port: 9094
+  
   
 
 ingress:
@@ -68,10 +68,10 @@ resources:
   # limits:
   limits:
     cpu: 100m
-  memory: 128Mi
+    memory: 128Mi
   requests:
     cpu: 100m
-  memory: 128Mi
+    memory: 128Mi
 
 autoscaling:
   enabled: false

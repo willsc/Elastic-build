@@ -7,8 +7,12 @@ metadata:
     app: kafka
 spec:
   type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
   selector:
-    {{- include "kafka.selectorLabels" . | nindent 4 }}
-     app: kafka
+    app: kafka
+  ports:
+    - port: 9094
+      name: kafka-2
+    - port: 9092
+      name: kafka-0
+    - port: 9093
+      name: kafka-3
