@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "zookeeper-test.fullname" . }}
+  name: {{ include "zookeeper.fullname" . }}
   labels:
-    {{- include "zookeeper-test.labels" . | nindent 4 }}
+    {{- include "zookeeper.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -14,15 +14,11 @@ spec:
   serviceName:  {{ .Values.serviceName }}
   selector:
     matchLabels:
-      {{- include "zookeeper-test.selectorLabels" . | nindent 6 }}
+      app: zookeeper
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "zookeeper-test.selectorLabels" . | nindent 8 }}
+        app: zookeeper
     spec:
       affinity:
         podAntiAffinity:
@@ -38,7 +34,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "zookeeper-test.serviceAccountName" . }}
+      serviceAccountName: {{ include "zookeeper.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -74,12 +70,20 @@ spec:
             - name: data
               mountPath: /datalog
               subPath: datalog
+   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: "{{ .Values.persistence.dataDirSize }}"
+      {{- if .Values.persistence.dataDirStorageClass }}
+      {{- if (eq "-" .Values.persistence.dataDirStorageClass) }}
+      storageClassName: ""
+      {{- else }}
+      storageClassName: "{{ .Values.persistence.dataDirStorageClass }}"
+      {{- end }}
+      {{- end }}
+  {{- end }}
