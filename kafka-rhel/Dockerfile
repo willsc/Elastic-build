@@ -22,10 +22,18 @@ ENV KAFKA_VERSION=$kafka_version \
     SCALA_VERSION=$scala_version \
     KAFKA_HOME=/opt/kafka
 
+RUN  groupadd kafka ; \
+     useradd  -u 1000 -g kafka -m -s /bin/bash kafka
+
+     
+
+
+
 ENV PATH=${PATH}:${KAFKA_HOME}/bin
 COPY start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp2/
 COPY kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz  /tmp2/
 
+COPY overrides /opt/overrides
 
 RUN set -eux ; \
     yum update -y ; \
@@ -34,14 +42,18 @@ RUN set -eux ; \
     mv /tmp2/start-kafka.sh /tmp2/broker-list.sh /tmp2/create-topics.sh /tmp2/versions.sh /usr/bin ; \
     sync ; \
     tar xfz /tmp2/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt ; \
+    chown -hLR kafka:kafka /opt ; \
+    chown kafka:kafka /usr/bin/*.sh ; \
     rm /tmp2/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz ; \
     ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME} ; \
     rm -rf /tmp2 ; \
     rm -rf /var/lib/apt/lists/*
 
+COPY log4j.properties /opt/kafka/config/log4j.properties
 COPY overrides /opt/overrides
+RUN chown  kafka:kafka /opt
 
 VOLUME ["/kafka"]
-
+USER kafka 
 # Use "exec" form so that it runs as PID 1 (useful for graceful shutdown)
 CMD ["start-kafka.sh"]

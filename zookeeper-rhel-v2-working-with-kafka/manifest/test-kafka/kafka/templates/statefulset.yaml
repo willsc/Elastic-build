@@ -20,16 +20,16 @@ spec:
       labels:
         app: kafka
     spec:
-      #affinity:
-      #    podAntiAffinity:
-      #      requiredDuringSchedulingIgnoredDuringExecution:
-      #        - labelSelector:
-      #              - key: "app"
-      #            matchExpressions:
-      #                operator: In
-      #                values:
-      #                - kafka
-      #          topologyKey: "kubernetes.io/hostname"
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - kafka
+              topologyKey: "kubernetes.io/hostname"
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

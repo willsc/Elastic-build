@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sources15">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/src/latest/bugzilla-latest/sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

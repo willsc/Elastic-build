@@ -97,7 +97,7 @@ if [[ -z "$KAFKA_ADVERTISED_HOST_NAME$KAFKA_LISTENERS" ]]; then
 fi
 
 #Issue newline to config file in case there is not one already
-echo "" >> "$KAFKA_HOME/config/server.properties"
+#echo "" >> "$KAFKA_HOME/config/server.properties"
 
 (
     function updateConfig() {
@@ -146,4 +146,4 @@ if [[ -n "$CUSTOM_INIT_SCRIPT" ]] ; then
   eval "$CUSTOM_INIT_SCRIPT"
 fi
 
-exec "$KAFKA_HOME/bin/kafka-server-start.sh" "$KAFKA_HOME/config/server.properties"
+exec   "$KAFKA_HOME/bin/kafka-server-start.sh" "$KAFKA_HOME/config/server.properties"

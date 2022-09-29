@@ -34,12 +34,12 @@ spec:
   selector:
     component: "{{ printf "zk-%s" .Release.Name  | trunc 24 }}"
 ---
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "{{ printf "zk-pdb-%s" .Release.Name | trunc 24 }}"
   annotations:
-    helm.sh/created: {{.Release.Time.Seconds | quote }}
+    helm.sh/created: {{.Release.Time | quote }}
   labels:
     heritage: {{.Release.Service | quote }}
     release: {{.Release.Name | quote }}
@@ -51,12 +51,12 @@ spec:
       component: "{{ printf "zk-%s" .Release.Name  | trunc 24 }}"
   maxUnavailable: {{.Values.MaxUnavailable}}
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "{{ printf "zk-%s" .Release.Name  | trunc 24 }}"
   annotations:
-    helm.sh/created: {{.Release.Time.Seconds | quote }}
+    helm.sh/created: {{. Release.Time | quote }}
   labels:
     heritage: {{.Release.Service | quote }}
     release: {{.Release.Name | quote }}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="generated-dsl44">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/jars/gradle/generated-dsl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

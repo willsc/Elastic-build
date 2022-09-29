@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sources70">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/pluginsDslCache/src/file-content-replacer/sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

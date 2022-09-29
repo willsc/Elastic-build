@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="projectConfigs1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/projectConfigs/ElasticBuild1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/projectConfigs/_Root.zip!/" />
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/projectConfigs/ElasticBuild.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

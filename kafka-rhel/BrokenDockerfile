@@ -1,0 +1,58 @@
+FROM centos:centos7
+ARG kafka_version=3.2.0
+ARG scala_version=2.13
+ARG vcs_ref=unspecified
+ARG build_date=unspecified
+
+LABEL org.label-schema.name="kafka" \
+      org.label-schema.description="Apache Kafka" \
+      org.label-schema.build-date="${build_date}" \
+      org.label-schema.vcs-url="https://github.com/willsc/kafka-docker" \
+      org.label-schema.vcs-ref="${vcs_ref}" \
+      org.label-schema.version="${scala_version}_${kafka_version}" \
+      org.label-schema.schema-version="1.0" \
+      maintainer="C Wills"
+
+RUN yum install -y  java-1.8.0-openjdk.x86_64 ; \
+    export JRE_HOME=/usr/lib/jvm/jre ; \
+    export JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk ; \
+    PATH=$PATH:$JRE_HOME:$JAVA_HOME
+
+ENV KAFKA_VERSION=$kafka_version \
+    SCALA_VERSION=$scala_version \
+    KAFKA_HOME=/opt/kafka
+
+RUN set -eux; \
+    groupadd -r kafka --gid=1000; \
+    useradd -r -g kafka --uid=1000 kafka 
+
+ENV PATH=${PATH}:${KAFKA_HOME}/bin
+COPY start-kafka.sh broker-list.sh create-topics.sh versions.sh /tmp2/
+COPY kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz  /tmp2/
+
+COPY gosu /usr/local/bin/gosu 
+
+
+
+RUN set -eux ; \
+    yum update -y ; \
+    yum install jq  wget curl net-tools netcat -y ; \
+    chmod a+x /tmp2/*.sh ; \
+    mv /tmp2/start-kafka.sh /tmp2/broker-list.sh /tmp2/create-topics.sh /tmp2/versions.sh /usr/bin ; \
+    sync ; \
+    tar xfz /tmp2/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt ; \
+    rm /tmp2/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz ; \
+    ln -s /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ${KAFKA_HOME} ; \
+    chown -R kafka:kafka /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION} ; \
+    chown kafka:kafka /usr/bin/start-kafka.sh /usr/bin/broker-list.sh /usr/bin/create-topics.sh  /usr/bin/versions.sh ; \
+    chmod +x /usr/local/bin/gosu ; \
+    rm -rf /tmp2 ; \
+    rm -rf /var/lib/apt/lists/*
+
+COPY overrides /opt/overrides
+RUN chown -R kafka:kafka /opt/overrides
+
+VOLUME ["/kafka"]
+
+# Use "exec" form so that it runs as PID 1 (useful for graceful shutdown)
+CMD ["start-kafka.sh"]

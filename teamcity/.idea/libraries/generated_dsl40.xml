@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="generated-dsl40">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/jars/ant-latest/generated-dsl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

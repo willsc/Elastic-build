@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sources89">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/src/oldVersioned/TeamCity.GitHubIssues/sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

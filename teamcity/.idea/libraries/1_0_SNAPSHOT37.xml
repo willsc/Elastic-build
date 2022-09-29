@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="1.0-SNAPSHOT37">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/.m2/org/jetbrains/teamcity/configs-dsl-kotlin-s3-artifact-storage/1.0-SNAPSHOT/configs-dsl-kotlin-s3-artifact-storage-1.0-20220808.201318-1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/.m2/org/jetbrains/teamcity/configs-dsl-kotlin-s3-artifact-storage/1.0-SNAPSHOT/configs-dsl-kotlin-s3-artifact-storage-1.0-20220808.201318-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

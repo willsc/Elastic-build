@@ -11,7 +11,7 @@ ARG ZK_DIST=apache-zookeeper-3.8.0-bin
 COPY apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz /
 
 RUN set -x \
-    && yum install -y openssh-server  java-11-openjdk java-11-openjdk-devel ca-certificates dirmngr gosu gnupg netcat wget gpg  \
+    && yum install -y openssh-server  java-11-openjdk java-11-openjdk-devel ca-certificates dirmngr gosu gnupg netcat nc wget gpg  \
     && tar -xzf "$ZK_DIST.tar.gz" -C /opt \
     && rm -r "$ZK_DIST.tar.gz" \
     && ln -s /opt/$ZK_DIST /opt/zookeeper 
@@ -23,7 +23,7 @@ RUN set -eux ; \
      export PATH=$JAVA_HOME/bin:$PATH ; \
      export JAVA_HOME ; \
      export JRE_HOME ; \
-     export PATH   
+     export PATH=$PATH:/usr/bin:.
 
 #Copy configuration generator script to bin
 COPY scripts /opt/zookeeper/bin/
@@ -40,3 +40,4 @@ RUN set -x \
 	&& ln -s /opt/zookeeper/bin/* /usr/bin \
 	&& ln -s /opt/zookeeper/$ZK_DIST.jar /usr/share/zookeeper/ \
 	&& ln -s /opt/zookeeper/lib/* /usr/share/zookeeper 
+

@@ -275,19 +275,20 @@ env:
   ## The number of Ticks that an ensemble member is allowed to perform leader
   ## election.
   ZOO_INIT_LIMIT: 5
-
+  ZOO_MAX_SESSION_TIMEOUT: 40000
+  ZOO_MIN_SESSION_TIMEOUT: 4000
   ZOO_TICK_TIME: 2000
-
+  
   ## The maximum number of concurrent client connections that
   ## a server in the ensemble will accept.
   ZOO_MAX_CLIENT_CNXNS: 60
 
   ## The number of Tick by which a follower may lag behind the ensembles leader.
-  ZK_SYNC_LIMIT: 10
+  ZOO_SYNC_LIMIT: 10
 
   ## The number of wall clock ms that corresponds to a Tick for the ensembles
   ## internal time.
-  ZK_TICK_TIME: 2000
+  ZOO_TICK_TIME: 2000
 
   ZOO_AUTOPURGE_PURGEINTERVAL: 0
   ZOO_AUTOPURGE_SNAPRETAINCOUNT: 3

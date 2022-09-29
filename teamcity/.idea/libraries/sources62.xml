@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sources62">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/multinode/data/system/caches/pluginsDslCache/src/latest/s3-artifact-storage-latest/sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

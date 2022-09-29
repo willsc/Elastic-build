@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="postgresql-42.2.202">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/jdbc/postgresql-42.2.20.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

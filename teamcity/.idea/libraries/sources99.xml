@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sources99">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/teamcity-docker-samples/compose-ubuntu/data_dir/system/caches/pluginsDslCache/src/visualstudiotest/sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
