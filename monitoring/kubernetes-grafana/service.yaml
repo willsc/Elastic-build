@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: monitoring
+  namespace: default
   annotations:
       prometheus.io/scrape: 'true'
       prometheus.io/port:   '3000'
 spec:
   selector: 
     app: grafana
-  type: NodePort  
+  type: LoadBalancer  
   ports:
     - port: 3000
       targetPort: 3000
