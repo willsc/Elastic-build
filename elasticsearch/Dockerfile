@@ -41,6 +41,7 @@ RUN mkdir /usr/share/elasticsearch
 WORKDIR /usr/share/elasticsearch
 
 
+
 RUN curl --retry 10 -S -L --output /tmp/elasticsearch.tar.gz https://github.com/willsc/Elastic-build/releases/download/v1.0/elasticsearch-7.17.4-linux-$(arch).tar.gz
 
 RUN tar -zxf /tmp/elasticsearch.tar.gz --strip-components=1

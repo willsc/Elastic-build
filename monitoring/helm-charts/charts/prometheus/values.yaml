@@ -473,7 +473,7 @@ configmapReload:
 kubeStateMetrics:
   ## If false, kube-state-metrics sub-chart will not be installed
   ##
-  enabled: false
+  enabled: true
 
 ## kube-state-metrics sub-chart configurable values
 ## Please see https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-state-metrics
@@ -1482,6 +1482,10 @@ serverFiles:
         static_configs:
           - targets:
             - elasticsearch-exporter-prometheus-elasticsearch-exporter:9108
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: 
+             - prometheus-stack-kube-state-metrics:8080 
 
       # A scrape configuration for running Prometheus on a Kubernetes cluster.
       # This uses separate scrape configs for cluster components (i.e. API server, node)
