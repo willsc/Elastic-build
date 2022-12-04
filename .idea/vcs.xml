@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/teamcity-docker-samples" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/teamcity/teamcity-docker-samples" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/teamcity/terraform/terraform_teamcity_aws" vcs="Git" />
   </component>
