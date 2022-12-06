@@ -1,0 +1,1 @@
+kibana-8.5.2/bin/kibana-8.5.2-linux-x86_64.tar.gz[[:space:]]elasticsearch-8.5.2/bin/elasticsearch-8.5.2-linux-x86_64.tar.g filter=lfs diff=lfs merge=lfs -text
