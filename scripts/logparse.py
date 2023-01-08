@@ -6,6 +6,11 @@ import os
 #parse log file
 logfile = "./logfile.log"
 
+
+# Find string in file and wite to csv file
+
+
+
 def parse_log_file(log_file):
     with open(log_file, 'r') as f:
         for line in f:
@@ -16,4 +21,14 @@ def parse_log_file(log_file):
                 with open('log.csv', 'a') as csv_file:
                     csv_file.write(fep, flowvol + '\n')
 
+
+if __name__ == '__main__':
+
 parse_log_file('./logfile.log')
+
+
+
+
+
+
+

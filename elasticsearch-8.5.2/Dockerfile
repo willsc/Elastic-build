@@ -5,6 +5,9 @@ COPY bin/tini-amd64 /bin/tini
 RUN set -eux ; \
     chmod 0555 /bin/tini
 
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+RUN export JAVA_HOME
+
 RUN mkdir /usr/share/elasticsearch
 WORKDIR /usr/share/elasticsearch
 
